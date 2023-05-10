@@ -11,7 +11,7 @@
     }
   },
   "variables": {
-    "location": "westeurope",
+    "location": "global",
     "sku": {
       "name": "S1",
       "tier": "Standard",
