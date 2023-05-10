@@ -1,0 +1,47 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "botName": {
+      "type": "string",
+      "defaultValue": "Botty",
+      "metadata": {
+        "description": "The name of the bot."
+      }
+    }
+  },
+  "variables": {
+    "location": "westeurope",
+    "sku": {
+      "name": "S1",
+      "tier": "Standard",
+      "size": "S1",
+      "capacity": 1
+    },
+    "kind": "Bot",
+    "botEndpoint": {
+      "type": "Microsoft.BotService/botServices/channels",
+      "name": "webchat",
+      "properties": {
+        "endpointUrl": "https://<your_bot_name>.azurewebsites.net/api/messages",
+        "appId": "<your_app_id>",
+        "appPassword": "<your_app_password>"
+      }
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.BotService/botServices",
+      "name": "[parameters('botName')]",
+      "location": "[variables('location')]",
+      "apiVersion": "2021-03-01-preview",
+      "sku": "[variables('sku')]",
+      "kind": "[variables('kind')]",
+      "properties": {
+        "displayName": "[parameters('botName')]",
+        "msbotId": "[parameters('botName')]",
+        "endpoint": "[variables('botEndpoint')]"
+      }
+    }
+  ]
+}
